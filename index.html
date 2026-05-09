@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GRNW Tech Repairs | PC & Laptop Repair</title>
+  <meta name="description" content="GRNW Tech Repairs gives PCs and laptops a new life with SSD upgrades, Windows installs, hardware upgrades, virus removal and friendly local support." />
+  <style>
+    :root {
+      --bg: #071018;
+      --card: #101c28;
+      --card-soft: #142638;
+      --text: #f3f8ff;
+      --muted: #a8bacd;
+      --blue: #2d9cff;
+      --green: #3ee082;
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 24px 80px rgba(0,0,0,0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(45,156,255,0.22), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(62,224,130,0.14), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(7,16,24,0.82);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      font-size: 1.2rem;
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      color: #06101a;
+      font-weight: 900;
+      box-shadow: 0 10px 30px rgba(45,156,255,0.25);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 20px;
+      border-radius: 999px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      color: #06101a;
+      box-shadow: 0 16px 40px rgba(45,156,255,0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 50px rgba(45,156,255,0.35);
+    }
+
+    .btn-secondary {
+      border-color: var(--border);
+      color: var(--text);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(255,255,255,0.28);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .hero {
+      padding: 92px 0 70px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      margin-bottom: 22px;
+      font-size: 0.92rem;
+    }
+
+    .badge span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 18px var(--green);
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 6vw, 5.4rem);
+      line-height: 0.95;
+      letter-spacing: -3px;
+      margin-bottom: 24px;
+    }
+
+    .highlight {
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 1.15rem;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 34px;
+    }
+
+    .trust-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 650px;
+    }
+
+    .trust-item {
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.035);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .trust-item strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.05rem;
+      margin-bottom: 2px;
+    }
+
+    .hero-card {
+      position: relative;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 34px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.035));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -80px -80px auto auto;
+      width: 220px;
+      height: 220px;
+      background: rgba(45,156,255,0.22);
+      filter: blur(24px);
+      border-radius: 50%;
+    }
+
+    .device {
+      position: relative;
+      min-height: 360px;
+      border-radius: 26px;
+      background:
+        linear-gradient(135deg, rgba(45,156,255,0.22), rgba(62,224,130,0.12)),
+        #0d1924;
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .device::after {
+      content: "⚙";
+      position: absolute;
+      font-size: 15rem;
+      opacity: 0.08;
+      transform: rotate(-18deg);
+    }
+
+    .device-content {
+      position: relative;
+      z-index: 1;
+      padding: 30px;
+    }
+
+    .device-icon {
+      font-size: 4.4rem;
+      margin-bottom: 14px;
+    }
+
+    .device h2 {
+      font-size: 2rem;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .device p {
+      color: var(--muted);
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin-bottom: 34px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+      margin-bottom: 12px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .service-card {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.045);
+      transition: 0.2s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(45,156,255,0.45);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: rgba(45,156,255,0.14);
+      margin-bottom: 16px;
+      font-size: 1.4rem;
+    }
+
+    .service-card h3 {
+      margin-bottom: 8px;
+      font-size: 1.15rem;
+    }
+
+    .service-card p {
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      counter-reset: steps;
+    }
+
+    .step {
+      padding: 22px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      counter-increment: steps;
+    }
+
+    .step::before {
+      content: "0" counter(steps);
+      display: inline-flex;
+      margin-bottom: 18px;
+      color: var(--green);
+      font-weight: 900;
+      font-size: 1.2rem;
+    }
+
+    .step h3 {
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .cta {
+      padding: 42px;
+      border-radius: 34px;
+      border: 1px solid rgba(62,224,130,0.25);
+      background:
+        linear-gradient(135deg, rgba(45,156,255,0.14), rgba(62,224,130,0.12)),
+        var(--card-soft);
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .cta h2 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.05;
+      margin-bottom: 12px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    footer {
+      padding: 34px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .cta {
+        grid-template-columns: 1fr;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .process {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .hero {
+        padding-top: 58px;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .services-grid,
+      .process,
+      .trust-row {
+        grid-template-columns: 1fr;
+      }
+
+      .cta {
+        padding: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo" aria-label="GRNW Tech Repairs home">
+        <span class="logo-mark">G</span>
+        <span>GRNW Tech Repairs</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#services">Services</a>
+        <a href="#process">How it works</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a class="btn btn-primary" href="mailto:hello@grnw.uk">Get help</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="badge"><span></span> Local PC & laptop repair</div>
+          <h1>Giving old tech <span class="highlight">a new life.</span></h1>
+          <p>
+            Slow, broken or outdated device? GRNW Tech Repairs can upgrade, clean,
+            repair and refresh your PC or laptop so it feels fast and reliable again.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="mailto:hello@grnw.uk">Message for a quote</a>
+            <a class="btn btn-secondary" href="#services">View services</a>
+          </div>
+
+          <div class="trust-row">
+            <div class="trust-item"><strong>Fair prices</strong>No confusing tech talk</div>
+            <div class="trust-item"><strong>Honest advice</strong>Repair before replace</div>
+            <div class="trust-item"><strong>Eco friendly</strong>Reduce e-waste</div>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="Repair and upgrade feature card">
+          <div class="device">
+            <div class="device-content">
+              <div class="device-icon">💻</div>
+              <h2>Repair. Upgrade. Reuse.</h2>
+              <p>SSD upgrades, Windows installs, hardware replacements, virus removal and more.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Services I offer</h2>
+          <p>Simple, practical repairs and upgrades for everyday PCs and laptops.</p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="service-icon">⚡</div>
+            <h3>SSD upgrades</h3>
+            <p>Replace slow hard drives with fast SSDs for quicker boot times and smoother use.</p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">🪟</div>
+            <h3>Windows installs</h3>
+            <p>Fresh Windows installs, setup, drivers, updates and basic software installation.</p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">🧰</div>
+            <h3>Hardware upgrades</h3>
+            <p>RAM, CPU, GPU, storage and general component replacement where supported.</p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">🧹</div>
+            <h3>Performance cleanup</h3>
+            <p>Remove junk, reduce startup lag and help your system run better.</p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">🛡️</div>
+            <h3>Virus removal</h3>
+            <p>Help remove malware, improve security and protect your device.</p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">🌐</div>
+            <h3>Network setup</h3>
+            <p>Wi-Fi, printer, home network and basic troubleshooting support.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="container">
+        <div class="section-heading">
+          <h2>How it works</h2>
+          <p>A clear, simple process with honest advice before any work is done.</p>
+        </div>
+
+        <div class="process">
+          <div class="step">
+            <h3>Message me</h3>
+            <p>Tell me what device you have and what problem you’re facing.</p>
+          </div>
+          <div class="step">
+            <h3>Quick check</h3>
+            <p>I’ll help work out what might be wrong and what options make sense.</p>
+          </div>
+          <div class="step">
+            <h3>Repair or upgrade</h3>
+            <p>Your device gets cleaned, upgraded, repaired or freshly installed.</p>
+          </div>
+          <div class="step">
+            <h3>Ready to use</h3>
+            <p>You get your device back working better, faster and cleaner.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <h2>Why replace when you can upgrade?</h2>
+            <p>
+              Save money, reduce waste and get more life out of your PC or laptop.
+              For quotes, questions or advice, send a message today.
+            </p>
+          </div>
+          <a class="btn btn-primary" href="mailto:hello@grnw.uk">hello@grnw.uk</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 GRNW Tech Repairs. PC & laptop repair, upgrades and support.</p>
+    </div>
+  </footer>
+</body>
+</html>
