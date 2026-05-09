@@ -445,6 +445,127 @@
         padding: 28px;
       }
     }
+  
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .price-card {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.045);
+    }
+
+    .price-card.featured {
+      border-color: rgba(62,224,130,0.42);
+      background: linear-gradient(180deg, rgba(62,224,130,0.10), rgba(255,255,255,0.045));
+    }
+
+    .price-card h3 {
+      font-size: 1.12rem;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .price-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .pricing-note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 850px;
+    }
+
+    @media (max-width: 900px) {
+      .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  
+    .contact-form {
+      margin-top: 24px;
+      display: grid;
+      gap: 14px;
+      max-width: 760px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .contact-form label {
+      display: grid;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      font: inherit;
+      outline: none;
+      color-scheme: dark;
+    }
+
+    .contact-form select option {
+      background: #101c28;
+      color: #f3f8ff;
+    }
+
+    .contact-form textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus,
+    .contact-form select:focus {
+      border-color: rgba(62,224,130,0.65);
+      box-shadow: 0 0 0 4px rgba(62,224,130,0.10);
+    }
+
+    .contact-form .hidden-field {
+      display: none;
+    }
+
+    .form-small {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 620px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -457,11 +578,12 @@
 
       <nav class="nav-links" aria-label="Main navigation">
         <a href="#services">Services</a>
+        <a href="#pricing">Prices</a>
         <a href="#process">How it works</a>
         <a href="#contact">Contact</a>
       </nav>
 
-      <a class="btn btn-primary" href="mailto:hello@grnw.uk">Get help</a>
+      <a class="btn btn-primary" href="mailto:connor.greenwood@cnnrgrnwd.com">Get help</a>
     </div>
   </header>
 
@@ -477,7 +599,7 @@
           </p>
 
           <div class="hero-actions">
-            <a class="btn btn-primary" href="mailto:hello@grnw.uk">Message for a quote</a>
+            <a class="btn btn-primary" href="mailto:connor.greenwood@cnnrgrnwd.com">Message for a quote</a>
             <a class="btn btn-secondary" href="#services">View services</a>
           </div>
 
@@ -547,6 +669,76 @@
       </div>
     </section>
 
+    <section id="pricing">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Simple starter prices</h2>
+          <p>Affordable local pricing. Final price depends on the device, issue and parts needed.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="price-card featured">
+            <h3>Fresh Windows install</h3>
+            <div class="price">From £25</div>
+            <p>Clean Windows install, drivers, updates and basic setup.</p>
+          </article>
+
+          <article class="price-card featured">
+            <h3>SSD upgrade labour</h3>
+            <div class="price">From £20</div>
+            <p>Speed up your PC or laptop by replacing a slow hard drive with an SSD.</p>
+          </article>
+
+          <article class="price-card">
+            <h3>Virus & malware cleanup</h3>
+            <div class="price">£20–£40</div>
+            <p>Help remove unwanted software, malware and suspicious programs.</p>
+          </article>
+
+          <article class="price-card">
+            <h3>PC performance cleanup</h3>
+            <div class="price">£15–£25</div>
+            <p>Reduce startup lag, remove junk and help your device run smoother.</p>
+          </article>
+
+          <article class="price-card">
+            <h3>Hardware installs</h3>
+            <div class="price">From £10</div>
+            <p>RAM, GPU, CPU and storage installs. Laptops may cost more depending on difficulty.</p>
+          </article>
+
+          <article class="price-card">
+            <h3>Diagnostics</h3>
+            <div class="price">£10–£15</div>
+            <p>Free if you go ahead with the repair. Helps cover time if no work is carried out.</p>
+          </article>
+        </div>
+
+        <p class="pricing-note">
+          Parts are not included unless agreed first. If you already have the part, you only pay labour.
+          I will always explain the likely cost before doing any work.
+        </p>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-heading">
+          <h2>About me</h2>
+          <p>
+            Hi, I’m Connor — a 17 year old college student based around the Wisbech UK area.
+            I started GRNW Tech Repairs as a side hustle because I enjoy working on computers,
+            fixing old tech and helping people save money by upgrading instead of replacing.
+          </p>
+          <p style="margin-top:16px; color: var(--muted); max-width: 760px;">
+            I’m not a certified professional business or repair shop, but I do have hands-on
+            experience with Windows installs, SSD upgrades, hardware replacements and general PC troubleshooting.
+            I always try to give honest advice, fair prices and the best result possible.
+          </p>
+        </div>
+      </div>
+    </section>
+
     <section id="process">
       <div class="container">
         <div class="section-heading">
@@ -582,10 +774,62 @@
             <h2>Why replace when you can upgrade?</h2>
             <p>
               Save money, reduce waste and get more life out of your PC or laptop.
-              For quotes, questions or advice, send a message today.
+              Fill in the form below and I’ll get back to you as soon as I can.
             </p>
+
+            <form class="contact-form" action="https://formsubmit.co/connor.greenwood@cnnrgrnwd.com" method="POST">
+              <input type="hidden" name="_subject" value="New GRNW repair request">
+              <input type="hidden" name="_template" value="table">
+              <input type="hidden" name="_captcha" value="false">
+              <input type="text" name="_honey" class="hidden-field" tabindex="-1" autocomplete="off">
+
+              <div class="form-row">
+                <label>
+                  Your name
+                  <input type="text" name="Name" placeholder="Your name" required>
+                </label>
+
+                <label>
+                  Phone or email
+                  <input type="text" name="Contact info" placeholder="Phone number or email" required>
+                </label>
+              </div>
+
+              <div class="form-row">
+                <label>
+                  Device type
+                  <select name="Device type" required>
+                    <option value="">Choose one</option>
+                    <option>Desktop PC</option>
+                    <option>Laptop</option>
+                    <option>Gaming PC</option>
+                    <option>Not sure</option>
+                  </select>
+                </label>
+
+                <label>
+                  Service needed
+                  <select name="Service needed" required>
+                    <option value="">Choose one</option>
+                    <option>Windows install</option>
+                    <option>SSD upgrade</option>
+                    <option>Virus / malware cleanup</option>
+                    <option>Hardware upgrade</option>
+                    <option>Diagnostics</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+              </div>
+
+              <label>
+                What’s the issue?
+                <textarea name="Message" placeholder="Tell me what is wrong, what device you have, and anything you have already tried." required></textarea>
+              </label>
+
+              <button class="btn btn-primary" type="submit">Send repair request</button>
+              <p class="form-small">Please don’t include passwords. I’ll only use your details to reply about your repair request.</p>
+            </form>
           </div>
-          <a class="btn btn-primary" href="mailto:hello@grnw.uk">hello@grnw.uk</a>
         </div>
       </div>
     </section>
