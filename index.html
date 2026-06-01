@@ -3,854 +3,567 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GRNW Tech Repairs | PC & Laptop Repair in Wisbech</title>
-  <meta name="description" content="GRNW Tech Repairs offers affordable PC and laptop repairs, SSD upgrades, Windows installs, diagnostics and hardware upgrades around the Wisbech UK area." />
-
+  <title>Workspace Launcher</title>
   <style>
-    :root {
-      --bg: #071018;
-      --bg-soft: #0b1722;
-      --card: #101c28;
-      --card-soft: #142638;
-      --text: #f3f8ff;
-      --muted: #a8bacd;
-      --blue: #2d9cff;
-      --green: #3ee082;
-      --border: rgba(255, 255, 255, 0.12);
-      --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
-      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f6f5f2;
+      color: #111;
+    }
+
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
       background:
-        radial-gradient(circle at top left, rgba(45, 156, 255, 0.22), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(62, 224, 130, 0.14), transparent 35%),
-        var(--bg);
-      color: var(--text);
-      line-height: 1.6;
+        linear-gradient(180deg, #f8f7f3 0%, #eef2f7 52%, #f8f7f3 100%);
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    .ambient-bg::before,
+    .ambient-bg::after {
+      content: "";
+      position: absolute;
+      left: -15%;
+      right: -15%;
+      height: 42%;
+      border-radius: 50%;
+      filter: blur(42px);
+      opacity: 0.55;
+      transform-origin: center;
     }
 
-    .container {
-      width: min(1120px, 92%);
+    .ambient-bg::before {
+      top: 8%;
+      background: linear-gradient(90deg, transparent, rgba(147,197,253,0.55), rgba(196,181,253,0.4), transparent);
+      animation: auroraWaveOne 20s ease-in-out infinite alternate;
+    }
+
+    .ambient-bg::after {
+      bottom: 3%;
+      background: linear-gradient(90deg, transparent, rgba(167,243,208,0.45), rgba(253,186,116,0.24), transparent);
+      animation: auroraWaveTwo 26s ease-in-out infinite alternate;
+    }
+
+    .orb {
+      display: none;
+    }
+
+    @keyframes auroraWaveOne {
+      0% {
+        transform: translate3d(-4%, 0, 0) rotate(-4deg) scale(1);
+      }
+      100% {
+        transform: translate3d(6%, 28px, 0) rotate(4deg) scale(1.08);
+      }
+    }
+
+    @keyframes auroraWaveTwo {
+      0% {
+        transform: translate3d(5%, 0, 0) rotate(3deg) scale(1.04);
+      }
+      100% {
+        transform: translate3d(-6%, -24px, 0) rotate(-3deg) scale(1);
+      }
+    }
+
+    .page {
+      position: relative;
+      z-index: 2;
+      max-width: 1280px;
       margin: 0 auto;
+      padding: 40px 24px;
     }
 
     header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(14px);
-      background: rgba(7, 16, 24, 0.84);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav {
-      min-height: 72px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 24px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 900;
-      letter-spacing: 0.8px;
-      font-size: 1.15rem;
-    }
-
-    .logo-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--green), var(--blue));
-      color: #06101a;
-      font-weight: 900;
-      box-shadow: 0 10px 30px rgba(45, 156, 255, 0.25);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .nav-links a:hover {
-      color: var(--text);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 13px 20px;
-      border-radius: 999px;
-      font-weight: 800;
-      border: 1px solid transparent;
-      transition: 0.2s ease;
-      cursor: pointer;
-      font: inherit;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--blue), var(--green));
-      color: #06101a;
-      box-shadow: 0 16px 40px rgba(45, 156, 255, 0.25);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 20px 50px rgba(45, 156, 255, 0.35);
-    }
-
-    .btn-secondary {
-      border-color: var(--border);
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.04);
-    }
-
-    .btn-secondary:hover {
-      border-color: rgba(255, 255, 255, 0.28);
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .hero {
-      padding: 92px 0 70px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 44px;
-      align-items: center;
+      gap: 28px;
+      align-items: flex-start;
+      margin-bottom: 32px;
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 13px;
-      border: 1px solid var(--border);
+      padding: 7px 12px;
       border-radius: 999px;
-      color: var(--muted);
-      background: rgba(255, 255, 255, 0.04);
-      margin-bottom: 22px;
-      font-size: 0.92rem;
+      background: rgba(255,255,255,0.75);
+      border: 1px solid #e6e2da;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 18px;
     }
 
-    .badge span {
+    .badge-dot {
       width: 8px;
       height: 8px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 18px var(--green);
+      border-radius: 999px;
+      background: #10b981;
     }
 
     h1 {
-      font-size: clamp(2.6rem, 6vw, 5.4rem);
+      font-size: clamp(42px, 7vw, 76px);
       line-height: 0.95;
-      letter-spacing: -3px;
-      margin-bottom: 24px;
+      letter-spacing: -0.06em;
+      font-weight: 720;
     }
 
-    .highlight {
-      background: linear-gradient(135deg, var(--green), var(--blue));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero p {
-      max-width: 650px;
-      color: var(--muted);
-      font-size: 1.15rem;
-      margin-bottom: 28px;
-    }
-
-    .hero-actions {
+    .actions {
       display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 34px;
-    }
-
-    .trust-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      max-width: 650px;
+      align-items: center;
     }
 
-    .trust-item {
-      padding: 14px;
-      border: 1px solid var(--border);
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-wrap span {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      color: #999;
+    }
+
+    input, select {
+      height: 46px;
+      border: 1px solid #e4e0d8;
+      background: white;
       border-radius: 18px;
-      background: rgba(255, 255, 255, 0.035);
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .trust-item strong {
-      display: block;
-      color: var(--text);
-      font-size: 1.05rem;
-      margin-bottom: 2px;
-    }
-
-    .hero-card {
-      position: relative;
-      padding: 28px;
-      border: 1px solid var(--border);
-      border-radius: 34px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035));
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: -80px -80px auto auto;
-      width: 220px;
-      height: 220px;
-      background: rgba(45, 156, 255, 0.22);
-      filter: blur(24px);
-      border-radius: 50%;
-    }
-
-    .device {
-      position: relative;
-      min-height: 360px;
-      border-radius: 26px;
-      background:
-        linear-gradient(135deg, rgba(45, 156, 255, 0.22), rgba(62, 224, 130, 0.12)),
-        #0d1924;
-      border: 1px solid var(--border);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .device::after {
-      content: "⚙";
-      position: absolute;
-      font-size: 15rem;
-      opacity: 0.08;
-      transform: rotate(-18deg);
-    }
-
-    .device-content {
-      position: relative;
-      z-index: 1;
-      padding: 30px;
-    }
-
-    .device-icon {
-      font-size: 4.4rem;
-      margin-bottom: 14px;
-    }
-
-    .device h2 {
-      font-size: 2rem;
-      line-height: 1.1;
-      margin-bottom: 12px;
-    }
-
-    .device p {
-      color: var(--muted);
-    }
-
-    section {
-      padding: 72px 0;
-    }
-
-    .section-heading {
-      max-width: 780px;
-      margin-bottom: 34px;
-    }
-
-    .section-heading h2 {
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.05;
-      letter-spacing: -1.5px;
-      margin-bottom: 12px;
-    }
-
-    .section-heading p {
-      color: var(--muted);
-      font-size: 1.05rem;
-      margin-bottom: 12px;
-    }
-
-    .services-grid,
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .service-card,
-    .price-card {
-      padding: 24px;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.045);
+      padding: 0 16px;
+      font: inherit;
+      outline: none;
       transition: 0.2s ease;
     }
 
-    .service-card:hover,
-    .price-card:hover {
-      transform: translateY(-4px);
-      background: rgba(255, 255, 255, 0.07);
-      border-color: rgba(45, 156, 255, 0.45);
+    input:focus, select:focus {
+      border-color: #111;
     }
 
-    .price-card.featured {
-      border-color: rgba(62, 224, 130, 0.42);
-      background: linear-gradient(180deg, rgba(62, 224, 130, 0.10), rgba(255, 255, 255, 0.045));
+    #search {
+      width: 290px;
+      padding-left: 42px;
     }
 
-    .service-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 16px;
+    button {
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .primary-btn {
+      height: 46px;
+      border-radius: 18px;
+      padding: 0 18px;
+      color: white;
+      background: #111;
+      transition: 0.2s ease;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      background: #262626;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      margin-bottom: 34px;
+      padding-bottom: 4px;
+    }
+
+    .tab {
+      white-space: nowrap;
+      border-radius: 18px;
+      padding: 10px 16px;
+      background: white;
+      color: #666;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.04);
+      transition: 0.2s ease;
+    }
+
+    .tab.active {
+      background: #111;
+      color: white;
+    }
+
+    .section {
+      margin-bottom: 44px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .section-head h2 {
+      font-size: 22px;
+      letter-spacing: -0.03em;
+    }
+
+    .section-head p {
+      color: #777;
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+      background: white;
+      border-radius: 28px;
+      padding: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.045);
+      transition: 0.22s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.11);
+    }
+
+    .hero {
+      height: 96px;
+      border-radius: 22px;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      color: white;
+      margin-bottom: 18px;
+      background: linear-gradient(135deg, #525252, #111);
+    }
+
+    .app-icon {
+      height: 50px;
+      min-width: 50px;
+      padding: 0 10px;
       display: grid;
       place-items: center;
-      background: rgba(45, 156, 255, 0.14);
-      margin-bottom: 16px;
-      font-size: 1.4rem;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.22);
+      font-weight: 800;
+      backdrop-filter: blur(10px);
     }
 
-    .service-card h3,
-    .price-card h3 {
-      margin-bottom: 8px;
-      font-size: 1.15rem;
+    .fav {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      color: white;
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px);
     }
 
-    .service-card p,
-    .price-card p {
-      color: var(--muted);
-      font-size: 0.96rem;
+    .fav.active {
+      background: rgba(255,255,255,0.32);
     }
 
-    .price {
-      font-size: 1.8rem;
-      font-weight: 900;
-      color: var(--green);
-      margin: 8px 0 10px;
+    .card-bottom {
+      display: block;
     }
 
-    .pricing-note {
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 0.95rem;
-      max-width: 850px;
+    .card h3 {
+      font-size: 19px;
+      margin-bottom: 5px;
     }
 
-    .about-card {
-      padding: 32px;
-      border: 1px solid var(--border);
-      border-radius: 30px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.035));
-      box-shadow: var(--shadow);
-      max-width: 920px;
+    .card p {
+      color: #707070;
+      font-size: 14px;
+      line-height: 1.35;
     }
 
-    .about-card p {
-      color: var(--muted);
-      margin-bottom: 14px;
-      font-size: 1.05rem;
-    }
 
-    .about-card strong {
-      color: var(--text);
-    }
-
-    .process {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      counter-reset: steps;
-    }
-
-    .step {
-      padding: 22px;
-      border-radius: 22px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      counter-increment: steps;
-    }
-
-    .step::before {
-      content: "0" counter(steps);
-      display: inline-flex;
-      margin-bottom: 18px;
-      color: var(--green);
-      font-weight: 900;
-      font-size: 1.2rem;
-    }
-
-    .step h3 {
-      margin-bottom: 8px;
-    }
-
-    .step p {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .cta {
-      padding: 42px;
-      border-radius: 34px;
-      border: 1px solid rgba(62, 224, 130, 0.25);
-      background:
-        linear-gradient(135deg, rgba(45, 156, 255, 0.14), rgba(62, 224, 130, 0.12)),
-        var(--card-soft);
-      box-shadow: var(--shadow);
-    }
-
-    .cta h2 {
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      line-height: 1.05;
-      margin-bottom: 12px;
-    }
-
-    .cta p {
-      color: var(--muted);
-      max-width: 760px;
-    }
-
-    .contact-form {
-      margin-top: 26px;
-      display: grid;
-      gap: 16px;
-      max-width: 780px;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-
-    .contact-form label {
-      display: grid;
-      gap: 7px;
-      color: var(--muted);
-      font-size: 0.95rem;
-      font-weight: 700;
-    }
-
-    .contact-form input,
-    .contact-form textarea,
-    .contact-form select {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 14px 16px;
-      background: #0f172a;
-      color: var(--text);
-      font: inherit;
-      outline: none;
-      color-scheme: dark;
-    }
-
-    .contact-form textarea {
-      min-height: 140px;
-      resize: vertical;
-    }
-
-    .contact-form select option {
-      background: #0f172a;
-      color: #f3f8ff;
-    }
-
-    .contact-form input:focus,
-    .contact-form textarea:focus,
-    .contact-form select:focus {
-      border-color: rgba(62, 224, 130, 0.65);
-      box-shadow: 0 0 0 4px rgba(62, 224, 130, 0.10);
-    }
-
-    .hidden-field {
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
       display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.42);
+      backdrop-filter: blur(8px);
+      z-index: 10;
     }
 
-    .form-small {
-      color: var(--muted);
-      font-size: 0.88rem;
-      max-width: 720px;
+    .modal-backdrop.show {
+      display: flex;
     }
 
-    footer {
-      padding: 34px 0;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
+    .modal {
+      width: min(440px, 100%);
+      background: white;
+      border-radius: 30px;
+      padding: 22px;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.28);
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .close-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: #f3f3f3;
+      color: #555;
+    }
+
+    .form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .form input {
+      width: 100%;
+      height: 50px;
+    }
+
+    .form .primary-btn {
+      height: 50px;
+      margin-top: 4px;
+    }
+
+    .small-note {
+      margin-top: 14px;
       text-align: center;
+      color: #777;
+      font-size: 12px;
+      line-height: 1.4;
     }
 
-    @media (max-width: 900px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
+    @media (max-width: 980px) {
+      header {
+        flex-direction: column;
       }
 
-      .services-grid,
-      .pricing-grid,
-      .process {
-        grid-template-columns: repeat(2, 1fr);
+      .actions {
+        width: 100%;
       }
 
-      .nav-links {
-        display: none;
+      .search-wrap, #search {
+        width: 100%;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
-    @media (max-width: 620px) {
-      .hero {
-        padding-top: 58px;
+    @media (max-width: 560px) {
+      .page {
+        padding: 24px 16px;
       }
 
-      h1 {
-        letter-spacing: -2px;
+      .actions {
+        flex-direction: column;
       }
 
-      .services-grid,
-      .pricing-grid,
-      .process,
-      .trust-row,
-      .form-row {
+      .primary-btn {
+        width: 100%;
+      }
+
+      .grid {
         grid-template-columns: 1fr;
-      }
-
-      .cta,
-      .about-card {
-        padding: 28px;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <a href="#" class="logo" aria-label="GRNW Tech Repairs home">
-        <span class="logo-mark">G</span>
-        <span>GRNW Tech Repairs</span>
-      </a>
-
-      <nav class="nav-links" aria-label="Main navigation">
-        <a href="#services">Services</a>
-        <a href="#pricing">Prices</a>
-        <a href="#about">About</a>
-        <a href="#process">How it works</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <a class="btn btn-primary" href="#contact">Get help</a>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="badge"><span></span> Local PC & laptop repair around Wisbech</div>
-          <h1>Giving old tech <span class="highlight">a new life.</span></h1>
-          <p>
-            Slow, broken or outdated device? GRNW Tech Repairs can upgrade, clean,
-            repair and refresh your PC or laptop so it feels fast and reliable again.
-          </p>
-
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contact">Send repair request</a>
-            <a class="btn btn-secondary" href="#services">View services</a>
-          </div>
-
-          <div class="trust-row">
-            <div class="trust-item"><strong>Fair prices</strong>No confusing tech talk</div>
-            <div class="trust-item"><strong>Honest advice</strong>Repair before replace</div>
-            <div class="trust-item"><strong>Eco friendly</strong>Reduce e-waste</div>
-          </div>
-        </div>
-
-        <div class="hero-card" aria-label="Repair and upgrade feature card">
-          <div class="device">
-            <div class="device-content">
-              <div class="device-icon">💻</div>
-              <h2>Repair. Upgrade. Reuse.</h2>
-              <p>SSD upgrades, Windows installs, hardware replacements, virus removal and diagnostics.</p>
-            </div>
-          </div>
-        </div>
+  <div class="ambient-bg">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+    <div class="orb four"></div>
+  </div>
+  <div class="page">
+    <header>
+      <div>
+        <div class="badge"><span class="badge-dot"></span> Workspace launcher</div>
+        <h1>Everything you need,<br />one click away.</h1>
       </div>
-    </section>
 
-    <section id="services">
-      <div class="container">
-        <div class="section-heading">
-          <h2>Services I offer</h2>
-          <p>Simple, practical repairs and upgrades for everyday PCs and laptops.</p>
+      <div class="actions">
+        <div class="search-wrap">
+          <span>⌕</span>
+          <input id="search" type="search" placeholder="Search apps..." />
         </div>
-
-        <div class="services-grid">
-          <article class="service-card">
-            <div class="service-icon">⚡</div>
-            <h3>SSD upgrades</h3>
-            <p>Replace slow hard drives with fast SSDs for quicker boot times and smoother everyday use.</p>
-          </article>
-
-          <article class="service-card">
-            <div class="service-icon">🪟</div>
-            <h3>Windows installs</h3>
-            <p>Fresh Windows installs, setup, drivers, updates and basic software installation.</p>
-          </article>
-
-          <article class="service-card">
-            <div class="service-icon">🧰</div>
-            <h3>Hardware upgrades</h3>
-            <p>RAM, CPU, GPU, storage and general component replacement where supported.</p>
-          </article>
-
-          <article class="service-card">
-            <div class="service-icon">🧹</div>
-            <h3>Performance cleanup</h3>
-            <p>Remove junk, reduce startup lag and help your system run smoother.</p>
-          </article>
-
-          <article class="service-card">
-            <div class="service-icon">🛡️</div>
-            <h3>Virus removal</h3>
-            <p>Help remove malware, suspicious software and unwanted programs.</p>
-          </article>
-
-          <article class="service-card">
-            <div class="service-icon">🌐</div>
-            <h3>Network setup</h3>
-            <p>Wi-Fi, printer, home network and basic troubleshooting support.</p>
-          </article>
-        </div>
+        
       </div>
-    </section>
+    </header>
 
-    <section id="pricing">
-      <div class="container">
-        <div class="section-heading">
-          <h2>Simple starter prices</h2>
-          <p>Affordable local pricing. Final price depends on the device, issue and parts needed.</p>
-        </div>
+    <nav class="tabs" id="tabs"></nav>
+    <main id="appSections"></main>
+  </div>
 
-        <div class="pricing-grid">
-          <article class="price-card featured">
-            <h3>Fresh Windows install</h3>
-            <div class="price">From £25</div>
-            <p>Clean Windows install, drivers, updates and basic setup.</p>
-          </article>
+  
 
-          <article class="price-card featured">
-            <h3>SSD upgrade labour</h3>
-            <div class="price">From £20</div>
-            <p>Speed up your PC or laptop by replacing a slow hard drive with an SSD.</p>
-          </article>
+  <script>
+    const defaultApps = [
+      { name: "Teams", category: "Microsoft 365", url: "https://teams.microsoft.com/", icon: "T", gradient: "#6366f1, #7c3aed", description: "Chat, meetings and collaboration" },
+      { name: "Outlook", category: "Microsoft 365", url: "https://outlook.office.com/", icon: "O", gradient: "#3b82f6, #0284c7", description: "Email and calendar" },
+      { name: "Word", category: "Microsoft 365", url: "https://www.office.com/launch/word", icon: "W", gradient: "#2563eb, #1e3a8a", description: "Documents and writing" },
+      { name: "Excel", category: "Microsoft 365", url: "https://www.office.com/launch/excel", icon: "X", gradient: "#10b981, #15803d", description: "Spreadsheets and analysis" },
+      { name: "PowerPoint", category: "Microsoft 365", url: "https://www.office.com/launch/powerpoint", icon: "P", gradient: "#f97316, #dc2626", description: "Slides and presentations" },
+      { name: "OneDrive", category: "Microsoft 365", url: "https://onedrive.live.com/", icon: "1D", gradient: "#38bdf8, #2563eb", description: "Files and cloud storage" },
+      { name: "OneNote", category: "Microsoft 365", url: "https://www.onenote.com/", icon: "N", gradient: "#a855f7, #a21caf", description: "Notes and notebooks" },
+      { name: "SharePoint", category: "Microsoft 365", url: "https://www.office.com/launch/sharepoint", icon: "S", gradient: "#14b8a6, #0e7490", description: "Sites and shared resources" },
+      { name: "YouTube", category: "Streaming", url: "https://www.youtube.com/", icon: "YT", gradient: "#ef4444, #b91c1c", description: "Videos, channels and creators" },
+      { name: "Netflix", category: "Streaming", url: "https://www.netflix.com/", icon: "N", gradient: "#b91c1c, #111111", description: "Movies and series" },
+      { name: "Prime Video", category: "Streaming", url: "https://www.primevideo.com/", icon: "PV", gradient: "#0ea5e9, #1e3a8a", description: "Amazon streaming" },
+      { name: "Twitch", category: "Streaming", url: "https://www.twitch.tv/", icon: "TW", gradient: "#8b5cf6, #6d28d9", description: "Live streams and gaming" },
+      { name: "Hulu", category: "Streaming", url: "https://www.hulu.com/", icon: "H", gradient: "#a3e635, #15803d", description: "Shows and live TV" },
+      { name: "Disney+", category: "Streaming", url: "https://www.disneyplus.com/", icon: "D+", gradient: "#1d4ed8, #172554", description: "Disney, Marvel and Star Wars" },
+      { name: "BBC iPlayer", category: "Streaming", url: "https://www.bbc.co.uk/iplayer", icon: "BBC", gradient: "#ec4899, #be123c", description: "BBC programmes and live TV" },
+      { name: "ITVX", category: "Streaming", url: "https://www.itv.com/", icon: "ITV", gradient: "#22d3ee, #1d4ed8", description: "ITV shows and live TV" },
 
-          <article class="price-card">
-            <h3>Virus & malware cleanup</h3>
-            <div class="price">£20–£40</div>
-            <p>Help remove unwanted software, malware and suspicious programs.</p>
-          </article>
+      { name: "Roblox", category: "Gaming", url: "https://www.roblox.com/", icon: "RB", gradient: "#111111, #525252", description: "Games, worlds and creators" },
+      { name: "Xbox Cloud Gaming", category: "Gaming", url: "https://www.xbox.com/play", icon: "XB", gradient: "#22c55e, #15803d", description: "Play Xbox games in the cloud" },
+      { name: "Minecraft", category: "Gaming", url: "https://www.minecraft.net/", icon: "MC", gradient: "#16a34a, #854d0e", description: "Build, explore and survive" },
+      { name: "Epic Games", category: "Gaming", url: "https://store.epicgames.com/", icon: "EP", gradient: "#18181b, #3f3f46", description: "Games store and free games" },
+      { name: "Steam", category: "Gaming", url: "https://store.steampowered.com/", icon: "ST", gradient: "#0f172a, #0369a1", description: "PC games and community" },
+      { name: "NVIDIA GeForce NOW", category: "Gaming", url: "https://www.nvidia.com/en-gb/geforce-now/", icon: "GN", gradient: "#76b900, #14532d", description: "Cloud gaming with GeForce" },
+      { name: "PlayStation", category: "Gaming", url: "https://www.playstation.com/", icon: "PS", gradient: "#2563eb, #1e1b4b", description: "PlayStation games and services" },
+      { name: "Nintendo", category: "Gaming", url: "https://www.nintendo.com/", icon: "N", gradient: "#ef4444, #991b1b", description: "Nintendo games and news" },
 
-          <article class="price-card">
-            <h3>PC performance cleanup</h3>
-            <div class="price">£15–£25</div>
-            <p>Reduce startup lag, remove junk and help your device run smoother.</p>
-          </article>
+      { name: "ChatGPT", category: "AI", url: "https://chatgpt.com/", icon: "GPT", gradient: "#10a37f, #064e3b", description: "AI assistant for writing and ideas" },
+      { name: "Microsoft Copilot", category: "AI", url: "https://copilot.microsoft.com/", icon: "CP", gradient: "#06b6d4, #2563eb", description: "Microsoft AI assistant" },
+      { name: "Google Gemini", category: "AI", url: "https://gemini.google.com/", icon: "GM", gradient: "#4285f4, #9333ea", description: "Google AI assistant" },
+      { name: "Claude", category: "AI", url: "https://claude.ai/", icon: "CL", gradient: "#d97706, #7c2d12", description: "AI assistant for thinking and writing" },
+      { name: "Perplexity", category: "AI", url: "https://www.perplexity.ai/", icon: "PX", gradient: "#14b8a6, #0f766e", description: "AI search and answers" },
+      { name: "Canva", category: "AI", url: "https://www.canva.com/", icon: "CV", gradient: "#00c4cc, #7c3aed", description: "Design, graphics and AI tools" },
 
-          <article class="price-card">
-            <h3>Hardware installs</h3>
-            <div class="price">From £10</div>
-            <p>RAM, GPU, CPU and storage installs. Laptops may cost more depending on difficulty.</p>
-          </article>
+      { name: "Google", category: "Popular", url: "https://www.google.com/", icon: "G", gradient: "#4285f4, #34a853", description: "Search the web" },
+      { name: "Wikipedia", category: "Popular", url: "https://www.wikipedia.org/", icon: "W", gradient: "#525252, #171717", description: "Free online encyclopedia" },
+      { name: "Reddit", category: "Popular", url: "https://www.reddit.com/", icon: "RD", gradient: "#ff4500, #991b1b", description: "Communities and discussions" },
+      { name: "GitHub", category: "Popular", url: "https://github.com/", icon: "GH", gradient: "#24292f, #000000", description: "Code, projects and repositories" },
+      { name: "Amazon", category: "Popular", url: "https://www.amazon.co.uk/", icon: "AZ", gradient: "#f59e0b, #111827", description: "Shopping and services" },
+      { name: "Gmail", category: "Popular", url: "https://mail.google.com/", icon: "GM", gradient: "#ef4444, #f59e0b", description: "Google email" }
+    ];
 
-          <article class="price-card">
-            <h3>Diagnostics</h3>
-            <div class="price">£10–£15</div>
-            <p>Free if you go ahead with the repair. Helps cover time if no work is carried out.</p>
-          </article>
-        </div>
+    let apps = JSON.parse(localStorage.getItem("launcherApps")) || defaultApps;
+    let favourites = JSON.parse(localStorage.getItem("launcherFavourites")) || ["Teams", "Outlook", "YouTube"];
+    let activeCategory = "All";
 
-        <p class="pricing-note">
-          Parts are not included unless agreed first. If you already have the part, you only pay labour.
-          I will always explain the likely cost before doing any work.
-        </p>
-      </div>
-    </section>
+    const tabs = document.getElementById("tabs");
+    const appSections = document.getElementById("appSections");
+    const search = document.getElementById("search");
+    const modal = document.getElementById("modal");
 
-    <section id="about">
-      <div class="container">
-        <div class="section-heading">
-          <h2>About me</h2>
-        </div>
+    function categories() {
+      return ["All", "Microsoft 365", "Streaming", "Favourites", ...new Set(apps.map(app => app.category).filter(category => !["Microsoft 365", "Streaming"].includes(category)))]
+    }
 
-        <div class="about-card">
-          <p>
-            Hi, I’m <strong>Connor</strong> — a 17 year old college student based around the
-            <strong>Wisbech, UK</strong> area.
-          </p>
-          <p>
-            I started GRNW Tech Repairs as a side hustle because I enjoy working on computers,
-            fixing old tech and helping people save money by upgrading instead of replacing.
-          </p>
-          <p>
-            I’m not a certified professional repair shop, but I do have hands-on experience with
-            Windows installs, SSD upgrades, hardware replacements and general PC troubleshooting.
-            I always try to give honest advice, fair prices and the best result possible.
-          </p>
-        </div>
-      </div>
-    </section>
+    function save() {
+      localStorage.setItem("launcherApps", JSON.stringify(apps));
+      localStorage.setItem("launcherFavourites", JSON.stringify(favourites));
+    }
 
-    <section id="process">
-      <div class="container">
-        <div class="section-heading">
-          <h2>How it works</h2>
-          <p>A clear, simple process with honest advice before any work is done.</p>
-        </div>
+    function renderTabs() {
+      tabs.innerHTML = categories().map(category => `
+        <button class="tab ${activeCategory === category ? "active" : ""}" data-category="${category}">${category}</button>
+      `).join("");
 
-        <div class="process">
-          <div class="step">
-            <h3>Send request</h3>
-            <p>Fill in the form with your device, contact info and what problem you’re facing.</p>
+      document.querySelectorAll(".tab").forEach(tab => {
+        tab.addEventListener("click", () => {
+          activeCategory = tab.dataset.category;
+          render();
+        });
+      });
+    }
+
+    function getFilteredApps() {
+      const term = search.value.toLowerCase();
+      return apps.filter(app => {
+        const matchesSearch = `${app.name} ${app.category} ${app.description}`.toLowerCase().includes(term);
+        const matchesCategory = activeCategory === "All" || app.category === activeCategory || (activeCategory === "Favourites" && favourites.includes(app.name));
+        return matchesSearch && matchesCategory;
+      });
+    }
+
+    function groupApps(items) {
+      return items.reduce((groups, app) => {
+        const group = activeCategory === "All" || activeCategory === "Favourites" ? app.category : activeCategory;
+        groups[group] = groups[group] || [];
+        groups[group].push(app);
+        return groups;
+      }, {});
+    }
+
+    function renderApps() {
+      const groups = groupApps(getFilteredApps());
+      appSections.innerHTML = Object.entries(groups).map(([category, categoryApps]) => `
+        <section class="section">
+          <div class="section-head">
+            <h2>${category}</h2>
+            <p>${categoryApps.length} apps</p>
           </div>
-          <div class="step">
-            <h3>Quick check</h3>
-            <p>I’ll look over the details and reply with advice, questions or an estimated price.</p>
+          <div class="grid">
+            ${categoryApps.map(app => `
+              <a class="card" href="${app.url}" target="_blank" rel="noopener noreferrer">
+                <div class="hero" style="background: linear-gradient(135deg, ${app.gradient});">
+                  <div class="app-icon">${app.icon}</div>
+                  <button class="fav ${favourites.includes(app.name) ? "active" : ""}" data-fav="${app.name}" type="button">★</button>
+                </div>
+                <div class="card-bottom">
+                  <div>
+                    <h3>${app.name}</h3>
+                    <p>${app.description}</p>
+                  </div>
+                </div>
+              </a>
+            `).join("")}
           </div>
-          <div class="step">
-            <h3>Repair or upgrade</h3>
-            <p>Your device gets cleaned, upgraded, repaired or freshly installed if we agree to go ahead.</p>
-          </div>
-          <div class="step">
-            <h3>Ready to use</h3>
-            <p>You get your device back working better, faster and cleaner.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
+      `).join("") || `<p>No apps found.</p>`;
 
-    <section id="contact">
-      <div class="container">
-        <div class="cta">
-          <h2>Send a repair request</h2>
-          <p>
-            Fill in the form below and your request will go straight into the GRNW Repairs inbox.
-            Please include as much detail as you can, but do not include any passwords.
-          </p>
+      document.querySelectorAll("[data-fav]").forEach(button => {
+        button.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          const name = button.dataset.fav;
+          favourites = favourites.includes(name) ? favourites.filter(item => item !== name) : [...favourites, name];
+          save();
+          render();
+        });
+      });
+    }
 
-          <form class="contact-form" action="https://formsubmit.co/repairs@grnw.uk" method="POST">
-            <input type="hidden" name="_subject" value="New GRNW repair request">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="text" name="_honey" class="hidden-field" tabindex="-1" autocomplete="off">
+    function render() {
+      renderTabs();
+      renderApps();
+    }
 
-            <div class="form-row">
-              <label>
-                Your name
-                <input type="text" name="Name" placeholder="Your name" required>
-              </label>
+    
 
-              <label>
-                Email address
-                <input type="email" name="Email" placeholder="you@example.com" required>
-              </label>
-            </div>
-
-            <div class="form-row">
-              <label>
-                Phone number
-                <input type="tel" name="Phone" placeholder="Optional, but useful">
-              </label>
-
-              <label>
-                Device type
-                <select name="Device type" required>
-                  <option value="">Choose one</option>
-                  <option>Desktop PC</option>
-                  <option>Laptop</option>
-                  <option>Gaming PC</option>
-                  <option>MacBook</option>
-                  <option>iMac</option>
-                  <option>Not sure</option>
-                  <option>Other</option>
-                </select>
-              </label>
-            </div>
-
-            <div class="form-row">
-              <label>
-                Service needed
-                <select name="Service needed" required>
-                  <option value="">Choose one</option>
-                  <option>Windows install</option>
-                  <option>SSD upgrade</option>
-                  <option>Virus / malware cleanup</option>
-                  <option>Hardware upgrade</option>
-                  <option>Diagnostics</option>
-                  <option>Network setup</option>
-                  <option>Other</option>
-                </select>
-              </label>
-
-              <label>
-                Urgency
-                <select name="Urgency" required>
-                  <option value="">Choose one</option>
-                  <option>Not urgent</option>
-                  <option>Soon if possible</option>
-                  <option>Urgent</option>
-                </select>
-              </label>
-            </div>
-
-            <label>
-              What’s the issue?
-              <textarea name="Issue details" placeholder="Tell me what is wrong, what device you have, and anything you have already tried." required></textarea>
-            </label>
-
-            <button class="btn btn-primary" type="submit">Send repair request</button>
-            <p class="form-small">
-              Please don’t include passwords. Your details are only used to reply about your repair request.
-            </p>
-          </form>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <p>© 2026 GRNW Tech Repairs. PC & laptop repair, upgrades and support around Wisbech, UK.</p>
-    </div>
-  </footer>
+    render();
+  </script>
 </body>
 </html>
